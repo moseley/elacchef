@@ -29,7 +29,7 @@ when "Amazon Linux 2015.03", "Amazon Linux 2015.09", "Amazon Linux 2016.03", "Am
   yum_package "Install PHP 7 MB String with yum" do
     package_name "php70-mbstring"
   end
-  yum_package "Install PHP 7 MB String with yum" do
+  yum_package "Install Mod SSL with yum" do
     package_name "mod_ssl"
   end
 
