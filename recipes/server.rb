@@ -17,8 +17,24 @@ end
 
 case os
 when "Amazon Linux 2015.03", "Amazon Linux 2015.09", "Amazon Linux 2016.03", "Amazon Linux 2016.09", "Red Hat Enterprise Linux 7", "CentOS Linux 7"
-  yum_package "Install Apache package with yum" do
-    package_name "httpd"
+  yum_package "Install Apache 2.4 package with yum" do
+    package_name "httpd24"
+  end
+  yum_package "Install PHP 7 package with yum" do
+    package_name "php70"
+  end
+  yum_package "Install PHP 7 MySQL with yum" do
+    package_name "php70-mysqlnd"
+  end
+  yum_package "Install PHP 7 MB String with yum" do
+    package_name "php70-mbstring"
+  end
+  yum_package "Install PHP 7 MB String with yum" do
+    package_name "mod_ssl"
+  end
+
+  service "httpd" do 
+    action [:enable, :start]
   end
 else
   Chef::Log.info("********** Cannot determine operating system type, or operating system is not Linux. Package not installed. **********")
