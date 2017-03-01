@@ -36,9 +36,55 @@ when "Amazon Linux 2015.03", "Amazon Linux 2015.09", "Amazon Linux 2016.03", "Am
     package_name "mod24_ssl"
   end
 
+  template "/etc/httpd/conf.d/000-wordpress.conf" do
+    source "000-wordpress.conf.erb"
+    mode "0644"
+    owner "root"
+    group "root"
+  end
+
+  group "www"
+
+  user "ec2-user" do
+    group "www"
+    system true
+    shell "/bin/bash"
+  end
+
+  user "apache" do
+    group "www"
+    system true
+    shell "/bin/bash"
+  end
+
+  execute "Change ownership of files and directories to apache" do
+    command "chown -R apache:www /var/www"
+    user "root"
+    action :nothing
+  end
+
+  execute "Set permissions on web root" do
+    command "chmod 2775 /var/www"
+    user "root"
+    action :nothing
+  end
+
+  execute "Directory Permissions" do
+    command "find /var/www -type d -exec chmod 2775 {} \;"
+    user "root"
+    action :nothing
+  end
+
+  execute "File Permissions" do
+    command "find /var/www -type f -exec chmod 0644 {} \;"
+    user "root"
+    action :nothing
+  end
+
   service "httpd" do 
     action [:enable, :start]
   end
+  
 else
   Chef::Log.info("********** Cannot determine operating system type, or operating system is not Linux. Package not installed. **********")
 end

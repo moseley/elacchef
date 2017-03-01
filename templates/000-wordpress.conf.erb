@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+  #ServerName 
+  #ServerAlias 
+  DocumentRoot /var/www/wordpress
+  #ErrorLog /var/www/wordpress/logs/error_log
+  <Directory /var/www/wordpress>
+    AllowOverride All
+  </Directory>
+</VirtualHost>
