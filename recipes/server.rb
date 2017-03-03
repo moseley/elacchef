@@ -61,10 +61,10 @@ when "Amazon Linux 2015.03", "Amazon Linux 2015.09", "Amazon Linux 2016.03", "Am
     action :run
   end
 
-  execute "Directory Permissions" do
-    command "find /var/www -type d -exec chmod 2775 \{\} \;"
-    user "root"
-    action :run
+  bash 'extract_module' do
+    code <<-EOH
+      find /var/www -type d -exec chmod 2775 {} \;
+      EOH
   end
 
   execute "File Permissions" do
