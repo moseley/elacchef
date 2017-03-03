@@ -62,13 +62,13 @@ when "Amazon Linux 2015.03", "Amazon Linux 2015.09", "Amazon Linux 2016.03", "Am
   end
 
   execute "Directory Permissions" do
-    command "find /var/www -type d -exec chmod 2775 {} \;"
+    command "find /var/www -type d -exec chmod 2775 {} ;"
     user "root"
     action :run
   end
 
   execute "File Permissions" do
-    command "find /var/www -type f -exec chmod 0644 {} \;"
+    command "find /var/www -type f -exec chmod 0644 {} ;"
     user "root"
     action :run
   end
