@@ -43,42 +43,34 @@ when "Amazon Linux 2015.03", "Amazon Linux 2015.09", "Amazon Linux 2016.03", "Am
     group "root"
   end
 
-  group "www"
-
-  user "ec2-user" do
-    group "www"
-    system true
-    shell "/bin/bash"
-  end
-
-  user "apache" do
-    group "www"
-    system true
-    shell "/bin/bash"
+  group "www" do
+    action :create
+    members "apache"
+    append true
   end
 
   execute "Change ownership of files and directories to apache" do
-    command "chown -R apache:www /var/www"
+    command "sudo chown -R apache:www /var/www"
     user "root"
     action :nothing
   end
 
   execute "Set permissions on web root" do
-    command "chmod 2775 /var/www"
+    command "sudo chmod 2775 /var/www"
     user "root"
-    action :nothing
+    action :run
   end
 
   execute "Directory Permissions" do
-    command "find /var/www -type d -exec chmod 2775 {} \;"
+    command "find /var/www -type d -exec sudo chmod 2775 {} \;"
     user "root"
-    action :nothing
+    action :run
   end
 
   execute "File Permissions" do
-    command "find /var/www -type f -exec chmod 0644 {} \;"
+    command "find /var/www -type f -exec sudo chmod 0644 {} \;"
     user "root"
-    action :nothing
+    action :run
   end
 
   service "httpd" do 
