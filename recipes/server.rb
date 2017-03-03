@@ -50,25 +50,25 @@ when "Amazon Linux 2015.03", "Amazon Linux 2015.09", "Amazon Linux 2016.03", "Am
   end
 
   execute "Change ownership of files and directories to apache" do
-    command "sudo chown -R apache:www /var/www"
+    command "chown -R apache:www /var/www"
     user "root"
     action :nothing
   end
 
   execute "Set permissions on web root" do
-    command "sudo chmod 2775 /var/www"
+    command "chmod 2775 /var/www"
     user "root"
     action :run
   end
 
   execute "Directory Permissions" do
-    command "find /var/www -type d -exec sudo chmod 2775 {} \;"
+    command "find /var/www -type d -exec chmod 2775 {} \;"
     user "root"
     action :run
   end
 
   execute "File Permissions" do
-    command "find /var/www -type f -exec sudo chmod 0644 {} \;"
+    command "find /var/www -type f -exec chmod 0644 {} \;"
     user "root"
     action :run
   end
